@@ -21,6 +21,7 @@ Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundMan
 Game.prototype.update = function() {
 	this.ball.update();
 	for (var i = this.squares.length - 1; i >= 0; --i) {
+		this.squares[i].update();
 		if (this.squares[i].shouldDestroy()) {
 			this.squares.splice(i, 1);
 		}

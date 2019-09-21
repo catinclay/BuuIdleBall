@@ -6,6 +6,7 @@ function ResourcePad(left, right, top, bottom) {
 	this.top = top;
 	this.bottom = bottom;
 	this.money = 5.5;
+	this.moneyLine = 0;
 }
 
 ResourcePad.prototype.getMoney = function(money) {
@@ -38,6 +39,7 @@ ResourcePad.prototype.drawToContext = function(theContext) {
 		  	remainMoney-=0.5;
 		}
 	}
+	this.moneyLine = moneyLine;
     theContext.strokeStyle = "#FF0000";
     theContext.lineWidth = 4;
   	theContext.stroke();

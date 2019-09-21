@@ -9,7 +9,7 @@ function Ball(posX, posY, squares, resourcePad, battleField, soundManager) {
 	this.resourcePad = resourcePad;
 	this.x = posX;
 	this.y = posY;
-	this.velX = 0;
+	this.velX = 1;
 	this.velY = 0;
 	this.accelX = 0;
 	this.accelY = 0;
@@ -22,10 +22,10 @@ function Ball(posX, posY, squares, resourcePad, battleField, soundManager) {
 }
 
 Ball.prototype.update = function() {
-	if (this.x + this.radius >= this.rightBound || this.x - this.radius <= this.leftBound) {
+	if (this.x + this.radius >= this.rightBound && this.velX >= 0 || this.x - this.radius <= this.leftBound && this.velX <= 0) {
 		this.velX *= -1;
 	}
-	if (this.y + this.radius >= this.bottomBound || this.y - this.radius <= this.topBound) {
+	if (this.y + this.radius >= this.bottomBound && this.velY >= 0 || this.y - this.radius <= this.topBound && this.velY <= 0) {
 		this.velY *= -1
 	}
 
@@ -70,7 +70,7 @@ Ball.prototype.update = function() {
 		this.target = nearest;
 	}
 	if (this.target != undefined) {
-		if (this.target.shouldDestroy()) {
+		if (!this.target.isAlive()) {
 			this.target = undefined;
 		} else if (this.stunCounter <= 0){
 			let dx = this.target.x - this.x;
@@ -93,6 +93,7 @@ Ball.prototype.findNearest = function(list) {
 	var nearestDis = undefined;
 	for (var id in list) {
 		let tar = list[id];
+		if (!tar.isAlive()) continue;
 		let dx = tar.x - this.x;
 		let dy = tar.y - this.y;
 		let dis = dx*dx + dy*dy;
