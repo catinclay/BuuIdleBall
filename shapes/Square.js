@@ -39,6 +39,10 @@ Square.prototype.update = function() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
+	if (this.velX * this.velX + this.velY * this.velY > 1) {
+		this.velX *= 0.99;
+		this.velY *= 0.99;
+	}
 }
 
 Square.prototype.hit = function(power) {
