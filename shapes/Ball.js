@@ -16,7 +16,7 @@ function Ball(posX, posY, squares, resourcePad, battleField, soundManager) {
 	this.color = "#00BB00";
 	this.radius = 10;
 	this.target = undefined;
-	this.accel = 0.1;
+	this.accel = 0.2;
 	this.power = 1;
 	this.stunCounter = 0;
 }

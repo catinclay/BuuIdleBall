@@ -40,6 +40,8 @@ Game.prototype.inputDownListener = function(touchX, touchY) {
 			this.drawables.push(square);
 			this.resourcePad.addMoney(-0.5);
 		}
+	} else if (this.controlPad.containsPoint(touchX, touchY)) {
+		this.controlPad.handleClick(touchX, touchY);
 	}
 }
 
