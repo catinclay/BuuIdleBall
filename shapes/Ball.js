@@ -1,9 +1,12 @@
 // Simple class example
 
-function Ball(posX, posY, squares, canvasWidth, canvasHeight, soundManager) {
-	this.canvasWidth = canvasWidth;
-	this.canvasHeight = canvasHeight;
+function Ball(posX, posY, squares, resourcePad, battleField, soundManager) {
+	this.leftBound = battleField.left;
+	this.rightBound = battleField.right;
+	this.topBound = battleField.top;
+	this.bottomBound = battleField.bottom;
 	this.squares = squares;
+	this.resourcePad = resourcePad;
 	this.x = posX;
 	this.y = posY;
 	this.velX = 0;
@@ -19,10 +22,10 @@ function Ball(posX, posY, squares, canvasWidth, canvasHeight, soundManager) {
 }
 
 Ball.prototype.update = function() {
-	if (this.x + this.radius >= this.canvasWidth || this.x - this.radius <= 0) {
+	if (this.x + this.radius >= this.rightBound || this.x - this.radius <= this.leftBound) {
 		this.velX *= -1;
 	}
-	if (this.y + this.radius >= this.canvasHeight || this.y - this.radius <= 0 ) {
+	if (this.y + this.radius >= this.bottomBound || this.y - this.radius <= this.topBound) {
 		this.velY *= -1
 	}
 
@@ -58,9 +61,12 @@ Ball.prototype.update = function() {
 		}
 	}
 	
+	if (this.stunCounter >= 0){
+		this.stunCounter--;
+	}
 
 	// Find nearest squre if no target.
-	if (this.target == undefined) {
+	if (this.target == undefined && this.stunCounter <= 0) {
 		this.target = nearest;
 	}
 	if (this.target != undefined) {
@@ -72,8 +78,6 @@ Ball.prototype.update = function() {
 			let k = this.accel / Math.sqrt(dx * dx + dy * dy);
 			this.velX += dx * k;
 			this.velY += dy * k;
-		} else if (this.stunCounter >= 0){
-			this.stunCounter--;
 		}
 	} 
 	if (this.velX * this.velX + this.velY * this.velY > 1) {

@@ -1,6 +1,6 @@
 // Simple class example
 
-function Square(posX, posY) {
+function Square(posX, posY, resourcePad) {
 	this.x = posX;
 	this.y = posY;
 	this.velX = 0;
@@ -9,9 +9,12 @@ function Square(posX, posY) {
 	this.accelY = 0;
 	this.color = "#FF0000";
 	this.radius = 10;
-	this.pushPower = 3;
+	this.pushPower = 10;
 	this.maxHp = 3;
 	this.hp = this.maxHp;
+	this.cost = 0.5;
+	this.bounty = 1;
+	this.resourcePad = resourcePad;
 }
 
 //The function below returns a Boolean value representing whether the point with the coordinates supplied "hits" the particle.
@@ -22,6 +25,9 @@ Square.prototype.hitTest = function(hitX,hitY) {
 Square.prototype.hit = function(power) {
 	if (this.hp <= 0) return;
 	this.hp -= power;
+	if (this.hp <= 0) {
+		this.resourcePad.addMoney(this.bounty);
+	}
 }
 
 //A function for drawing the particle.

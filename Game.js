@@ -6,8 +6,15 @@ Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundMan
 	this.drawables = [];
 	this.imageManager = imageManager;
 	this.soundManager = soundManager;
+	this.resourcePad = new ResourcePad(10, canvasWidth-10, 10, 30);
+	this.drawables.push(this.resourcePad);
+	this.battleField = new BattleField(10, canvasWidth-10, this.resourcePad.bottom + 10, 500);
+	this.drawables.push(this.battleField);
+	this.controlPad = new ControlPad(10, canvasWidth-10, this.battleField.bottom + 10, canvasHeight -10);
+	this.drawables.push(this.controlPad);
+
 	this.squares = [];
-	this.ball = new Ball(100, 100, this.squares, canvasWidth, canvasHeight, this.soundManager);
+	this.ball = new Ball(100, 100, this.squares, this.resourcePad, this.battleField, this.soundManager);
 	this.drawables.push(this.ball);
 }
 
@@ -25,9 +32,14 @@ Game.prototype.getDrawables = function() {
 }
 
 Game.prototype.inputDownListener = function(touchX, touchY) {
-	var square = new Square(touchX, touchY);
-	this.squares.push(square);
-	this.drawables.push(square);
+	if (this.battleField.containsPoint(touchX, touchY)) {
+		if (this.resourcePad.getMoney() >= 0.5) {
+			var square = new Square(touchX, touchY, this.resourcePad);
+			this.squares.push(square);
+			this.drawables.push(square);
+			this.resourcePad.addMoney(-0.5);
+		}
+	}
 }
 
 Game.prototype.inputMoveListener = function(touchX, touchY) {
