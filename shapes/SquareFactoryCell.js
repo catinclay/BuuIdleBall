@@ -58,7 +58,7 @@ SquareFactoryCell.prototype.handleClick = function(x, y) {
 			this.speedPurchaseCost = 10;
 		} else {
 			this.produceSpeed = Math.floor(this.produceSpeed * 1.35);
-			this.speedPurchaseCost = Math.floor(this.speedPurchaseCost * (1+this.purchaseLvl*0.2));
+			this.speedPurchaseCost = Math.floor(this.speedPurchaseCost * (1+this.purchaseLvl*0.1));
 		}
 		++this.purchaseLvl;
 	}
