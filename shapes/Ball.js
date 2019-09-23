@@ -16,7 +16,7 @@ function Ball(posX, posY, squares, resourcePad, battleField, soundManager) {
 	this.color = "#00BB00";
 	this.radius = 10;
 	this.target = undefined;
-	this.accel = 0.2;
+	this.accel = 0.175;
 	this.power = 1;
 	this.stunCounter = 0;
 }
@@ -49,13 +49,13 @@ Ball.prototype.update = function() {
 				}
 			}
 			if (isHit) {
-				this.stunCounter = 20;
+				this.stunCounter = 25;
 				let vx2vy2 = this.velX * this.velX + this.velY * this.velY;
 				let k = nearest.pushPower/Math.sqrt(vx2vy2);
 				this.velX *= k;
 				this.velY *= k;
 				nearest.hit(this.power);
-				soundManager.play("failedSound");
+				soundManager.play("hitSound");
 			}
 			this.target = undefined;
 		}

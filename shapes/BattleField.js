@@ -1,14 +1,19 @@
 // Simple class example
 
-function BattleField(left, right, top, bottom) {
-	this.left = left;
-	this.right = right;
-	this.top = top;
-	this.bottom = bottom;
+function BattleField(squares, lrtb) {
+	this.squares = squares;
+	this.left = lrtb.l;
+	this.right = lrtb.r;
+	this.top = lrtb.t;
+	this.bottom = lrtb.b;
 }
 
 BattleField.prototype.containsPoint = function(x, y) {
 	return x >= this.left && x <= this.right && y >= this.top && y <= this.bottom;
+}
+
+BattleField.prototype.insertSquare = function(square) {
+	this.squares.push(square);
 }
 
 //A function for drawing the particle.

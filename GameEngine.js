@@ -29,13 +29,13 @@ GameEngine.prototype.drawScreen = function() {
 	this.context.fillStyle = "#FFFFFF";
 	this.context.fillRect(0, 0, this.theCanvas.width, this.theCanvas.height);
 	var drawables = this.game.getDrawables();
-	for (var i in drawables) {
-		var d = drawables[i];
-		d.drawToContext(this.context);
-	}
-	for (var i = drawables.length - 1; i >= 0; --i) {
-		if (drawables[i].shouldDestroy()) {
-			drawables.splice(i, 1);
+	for (let i in drawables) {
+		for (let ii = drawables[i].length - 1; ii >= 0; --ii) {
+			let d = drawables[i][ii];
+			d.drawToContext(this.context);
+			if (drawables[i][ii].shouldDestroy()) {
+				drawables[i].splice(ii, 1);
+			}
 		}
 	}
 }

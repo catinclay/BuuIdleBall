@@ -1,6 +1,6 @@
 // Simple class example
 
-function Square(posX, posY, resourcePad) {
+function RedSquare(posX, posY, resourcePad) {
 	this.x = posX;
 	this.y = posY;
 	this.velX = 0;
@@ -8,10 +8,11 @@ function Square(posX, posY, resourcePad) {
 	this.accelX = 0;
 	this.accelY = 0;
 	this.accel = 0.2;
+	this.label = "redSquare";
 	this.color = "#FF0000";
 	this.lineWidth = 2;
 	this.radius = 10;
-	this.pushPower = 10;
+	this.pushPower = 5;
 	this.maxHp = 3;
 	this.hp = this.maxHp;
 	this.cost = 0.5;
@@ -20,7 +21,7 @@ function Square(posX, posY, resourcePad) {
 	this.goingToBeDestroyed = false;
 }
 
-Square.prototype.update = function() {
+RedSquare.prototype.update = function() {
 	if (this.shouldDestroy()) return; 
 	if (this.isAlive()) return;
 	let tx = this.resourcePad.moneyLine;
@@ -45,7 +46,7 @@ Square.prototype.update = function() {
 	}
 }
 
-Square.prototype.hit = function(power) {
+RedSquare.prototype.hit = function(power) {
 	if (!this.isAlive()) return;
 	this.hp -= power;
 	if (!this.isAlive()) {
@@ -55,7 +56,7 @@ Square.prototype.hit = function(power) {
 }
 
 //A function for drawing the particle.
-Square.prototype.drawToContext = function(theContext) {
+RedSquare.prototype.drawToContext = function(theContext) {
 	theContext.fillStyle = this.color;
 	if (this.isAlive()){
 		theContext.fillRect(this.x - this.radius, this.y - this.radius + 2*(this.maxHp - this.hp)/this.maxHp * this.radius, 2*this.radius, 2*this.radius - 2*(this.maxHp - this.hp)/this.maxHp * this.radius);
@@ -71,10 +72,10 @@ Square.prototype.drawToContext = function(theContext) {
 
 
 
-Square.prototype.isAlive = function() {
+RedSquare.prototype.isAlive = function() {
 	return this.hp > 0;
 }
 
-Square.prototype.shouldDestroy = function() {
+RedSquare.prototype.shouldDestroy = function() {
 	return this.goingToBeDestroyed;
 }
