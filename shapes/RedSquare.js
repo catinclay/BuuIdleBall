@@ -12,7 +12,7 @@ function RedSquare(posX, posY, resourcePad) {
 	this.color = "#FF0000";
 	this.lineWidth = 2;
 	this.radius = 10;
-	this.pushPower = 5;
+	this.pushPower = 8;
 	this.maxHp = 3;
 	this.hp = this.maxHp;
 	this.cost = 0.5;
